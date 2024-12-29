@@ -15,12 +15,27 @@ const userSlice = createSlice({
                age: user.age
                }
             })
-        }
+        },
+        addUser :(state, action) =>{
+            state.users.push(action.payload)
+        },
+        UpdateUser :(state, action) =>{
+          const index = state.users.findIndex(x => x.id === action.payload.id)
+          state.users[index]={
+            id: action.payload.id,
+            name: action.payload.name,
+            email: action.payload.email,
+            age: action.payload.age
+          }
+        },
 
+        deleteUser: (state, action) => {
+            state.users = state.users.filter(user => user.id !== action.payload);
+        }
     }
 })
 
 
 
-export const {getUser} = userSlice.actions;
+export const {getUser, addUser, UpdateUser, deleteUser} = userSlice.actions;
 export default userSlice.reducer;
